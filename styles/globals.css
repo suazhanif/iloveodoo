@@ -1,0 +1,5 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: #0A0A0F; }
+input::placeholder { color: #6B7280; }
+button:hover { opacity: 0.9; transform: translateY(-1px); transition: all 0.15s; }
