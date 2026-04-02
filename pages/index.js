@@ -7,7 +7,8 @@ const tools = [
     emoji: '🏗️',
     name: 'Module Scaffolder',
     desc: 'Generate a complete Odoo module folder structure and download it as a zip in seconds.',
-    status: 'coming-soon',
+    status: 'live',
+    href: '/tools/module-scaffolder',
     color: '#7C3AED',
     bg: '#EDE9FE',
   },
@@ -17,6 +18,7 @@ const tools = [
     name: 'Domain Builder',
     desc: 'Build Odoo domain expressions visually. No more guessing bracket syntax.',
     status: 'coming-soon',
+    href: null,
     color: '#0369A1',
     bg: '#E0F2FE',
   },
@@ -26,6 +28,7 @@ const tools = [
     name: 'Manifest Validator',
     desc: 'Paste your __manifest__.py and get instant errors, warnings, and missing field alerts.',
     status: 'coming-soon',
+    href: null,
     color: '#065F46',
     bg: '#D1FAE5',
   },
@@ -176,13 +179,15 @@ export default function Home() {
               gap: '16px',
             }}>
               {tools.map(tool => (
-                <div key={tool.id} style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(124,58,237,0.15)',
-                  borderRadius: '16px', padding: '1.5rem',
-                  transition: 'border-color 0.2s, background 0.2s',
-                  cursor: 'default',
-                }}>
+                <div key={tool.id}
+                  onClick={() => tool.href && (window.location.href = tool.href)}
+                  style={{
+                    background: 'rgba(255,255,255,0.03)',
+                    border: tool.status === 'live' ? '1px solid rgba(124,58,237,0.4)' : '1px solid rgba(124,58,237,0.15)',
+                    borderRadius: '16px', padding: '1.5rem',
+                    transition: 'border-color 0.2s, background 0.2s',
+                    cursor: tool.href ? 'pointer' : 'default',
+                  }}>
                   <div style={{
                     width: '44px', height: '44px', borderRadius: '12px',
                     background: tool.bg, display: 'flex', alignItems: 'center',
@@ -202,16 +207,22 @@ export default function Home() {
                     </h3>
                     <span style={{
                       fontFamily: "'DM Mono', monospace", fontSize: '10px',
-                      color: '#6B7280', background: 'rgba(255,255,255,0.05)',
-                      border: '1px solid rgba(255,255,255,0.08)',
+                      color: tool.status === 'live' ? '#86EFAC' : '#6B7280',
+                      background: tool.status === 'live' ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.05)',
+                      border: tool.status === 'live' ? '1px solid rgba(16,185,129,0.3)' : '1px solid rgba(255,255,255,0.08)',
                       borderRadius: '20px', padding: '2px 8px', whiteSpace: 'nowrap',
                     }}>
-                      soon
+                      {tool.status === 'live' ? '● live' : 'soon'}
                     </span>
                   </div>
                   <p style={{ fontSize: '0.875rem', color: '#9CA3AF', margin: 0, lineHeight: 1.6 }}>
                     {tool.desc}
                   </p>
+                  {tool.href && (
+                    <p style={{ fontSize: '12px', color: '#7C3AED', margin: '10px 0 0', fontFamily: "'DM Mono', monospace" }}>
+                      Try it →
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
